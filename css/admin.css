@@ -11,6 +11,10 @@
 	box-sizing: border-box;
 }
 
+.metabox-tabs > h2.hndle {
+	background: #fff;
+}
+
 .metabox-tabs ul.metabox-tabs-nav {
 	float: left;
 	width: 50px;

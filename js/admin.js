@@ -3,8 +3,34 @@
  */
 
 var tabsJson = {
+	'postbox-container-1': {
+		location: 'top',
+		metaboxes: [
+			{
+				id: 'categorydiv',
+				icon: 'admin-generic'
+			},
+			{
+				id: 'tagsdiv-post_tag',
+				icon: 'admin-generic'
+			},
+			{
+				id: 'customsidebars-mb',
+				icon: 'admin-generic'
+			},
+			{
+				id: 'gn-genrediv',
+				icon: 'admin-generic'
+			},
+			{
+				id: 'nw_content_seriesdiv',
+				icon: 'admin-generic'
+			}
+		]
+	},
 	'postbox-container-2': {
 		location: 'top',
+		title: 'Basic Options',
 		metaboxes: [
 			{
 				id: '_nw_schema_options',
@@ -75,6 +101,11 @@ var metaboxTabs = ( function( $ ) {
 				$tabsContainer    = $( '<div class="metabox-tabs postbox">' ),
 				$tabsNavContainer = $( '<ul class="metabox-tabs-nav">' ).prependTo( $tabsContainer );
 
+			// Prepend title if specified.
+			if ( atts.title ) {
+				$tabsContainer.prepend( `<h2 class="hndle">${atts.title}</h2>` );
+			}
+
 			// Bail if the postbox doesn't exist.
 			if ( $postbox.length <= 0 ) {
 				return true;
@@ -133,7 +164,8 @@ var metaboxTabs = ( function( $ ) {
 				$activeNavItem    = $link.parent( 'li' ),
 				$inactiveNavItems = $activeNavItem.siblings(),
 				index             = $activeNavItem.attr( 'data-metabox-tab-index' ),
-				$activeTab        = $( `#metabox-tabs-tab-${index}` ),
+				$tabContainer     = $activeNavItem.closest( '.metabox-tabs' ),
+				$activeTab        = $tabContainer.find( `#metabox-tabs-tab-${index}` ),
 				$inactiveTabs     = $activeTab.siblings();
 
 			// Deactivate tabs.
