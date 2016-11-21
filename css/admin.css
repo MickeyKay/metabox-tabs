@@ -28,6 +28,7 @@
 .metabox-tabs ul.ui-tabs-nav a {
 	display: block;
 	position: relative;
+	min-height: 45px;
 	margin: 0;
 	padding: 12px;
 	line-height: 20px!important;
@@ -35,6 +36,7 @@
 	border-bottom: 1px solid #eee;
 	box-shadow: none;
 	text-decoration: none;
+	box-sizing: border-box;
 }
 
 .metabox-tabs ul.ui-tabs-nav .ui-tabs-active a {
@@ -44,7 +46,7 @@
 }
 
 .metabox-tabs ul.ui-tabs-nav a .title {
-	visibility: hidden;
+	display: none;
 }
 
 .metabox-tabs ul.ui-tabs-nav .dashicons {
@@ -79,9 +81,14 @@
 	min-width: 0;
 }
 
-.metabox-tabs .ui-tabs-panel button,
-.metabox-tabs .ui-tabs-panel h2 {
+.metabox-tabs .ui-tabs-panel button {
 	display: none;
+}
+
+.metabox-tabs .ui-tabs-panel h2 {
+	margin-bottom: 15px !important;
+	padding: 0 !important;
+	border-bottom: none;
 }
 
 @media (min-width: 480px) {
@@ -99,11 +106,15 @@
 	}
 
 	.metabox-tabs ul.ui-tabs-nav a .title {
-		visibility: visible;
+		display: inline-block;
 	}
 
 	.metabox-tabs .ui-tabs-panel {
 		width: calc(100% - 180px);
+	}
+
+	.metabox-tabs .ui-tabs-panel h2 {
+		display: none;
 	}
 }
 
@@ -122,10 +133,14 @@
 	}
 
 	#postbox-container-1 .metabox-tabs ul.ui-tabs-nav a .title {
-		visibility: hidden;
+		display: none;
 	}
 
 	#postbox-container-1 .metabox-tabs .ui-tabs-panel {
 		width: calc(100% - 50px);
+	}
+
+	#postbox-container-1 .metabox-tabs .ui-tabs-panel h2 {
+		display: block;
 	}
 }

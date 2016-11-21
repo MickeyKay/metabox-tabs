@@ -88,7 +88,7 @@ var metaboxTabs = ( function( $ ) {
 				$metabox.remove();
 
 				// Add nav link.
-				$tabsNavContainer.append( `<li><a href="#tabs-${index}">${icon}<span class="title">${tabTitle}</span></a></li>` );
+				$tabsNavContainer.append( `<li><a href="#tabs-${index}" title="${tabTitle}">${icon}<span class="title">${tabTitle}</span></a></li>` );
 
 				// Add tab.
 				$tabContainer = $( `<div id="tabs-${index}">` ).appendTo( $tabsContainer );
