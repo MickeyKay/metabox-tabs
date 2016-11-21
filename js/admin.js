@@ -3,41 +3,56 @@
  */
 
 var tabsJson = {
-	'postbox-container-1': {
-		location: 'bottom',
-		metaboxes: [
-			{
-				id: 'categorydiv',
-				icon: 'admin-generic'
-			},
-			{
-				id: 'tagsdiv-post_tag',
-				icon: 'dashboard'
-			},
-			{
-				id: 'postimagediv',
-				icon: 'share'
-			},
-			{
-				id: 'archiver_post',
-				icon: 'share'
-			}
-		],
-	},
 	'postbox-container-2': {
 		location: 'top',
 		metaboxes: [
 			{
-				id: 'authordiv',
+				id: '_nw_schema_options',
 				icon: 'admin-generic'
 			},
 			{
-				id: 'revisionsdiv',
-				icon: 'dashboard'
+				id: '_nw_post_options',
+				icon: 'admin-generic'
+			},
+			{
+				id: 'coauthorsdiv',
+				icon: 'admin-generic'
 			},
 			{
 				id: 'wpseo_meta',
-				icon: 'share'
+				icon: 'admin-generic'
+			},
+			{
+				id: '_nw_syndication_options',
+				icon: 'admin-generic'
+			},
+			{
+				id: '_nw_tool_options',
+				icon: 'admin-generic'
+			},
+			{
+				id: '_nw_disable_cache',
+				icon: 'admin-generic'
+			},
+			{
+				id: 'postexcerpt',
+				icon: 'admin-generic'
+			},
+			{
+				id: 'postcustom',
+				icon: 'admin-generic'
+			},
+			{
+				id: 'slugdiv',
+				icon: 'admin-generic'
+			},
+			{
+				id: 'zopim_post_meta',
+				icon: 'admin-generic'
+			},
+			{
+				id: 'edit-flow-editorial-comments',
+				icon: 'admin-generic'
 			}
 		]
 	}
@@ -45,8 +60,12 @@ var tabsJson = {
 
 var metaboxTabs = ( function( $ ) {
 
+	// Set up global vars.
+	var $metaboxTabContainers
+
 	var init = function() {
 		initializeMetaboxTabs( tabsJson );
+		setUpEventHandlers();
 	}
 
 	var initializeMetaboxTabs = function( tabsJson ) {
@@ -54,7 +73,7 @@ var metaboxTabs = ( function( $ ) {
 		$.each( tabsJson, function( postboxId, atts ) {
 			var $postbox          = $( `#${postboxId}` );
 				$tabsContainer    = $( '<div class="metabox-tabs postbox">' ),
-				$tabsNavContainer = $( '<ul>' ).prependTo( $tabsContainer );
+				$tabsNavContainer = $( '<ul class="metabox-tabs-nav">' ).prependTo( $tabsContainer );
 
 			// Bail if the postbox doesn't exist.
 			if ( $postbox.length <= 0 ) {
@@ -69,11 +88,9 @@ var metaboxTabs = ( function( $ ) {
 
 			$.each( atts.metaboxes, function( index, metabox ) {
 
-				// Force index to start at 1.
-				index = index + 1;
 				metabox.icon = metabox.icon || 'admin-general';
 
-				var $metabox    = $( `#${metabox.id}` ),
+				var $metabox    = $( `#${metabox.id}` ).not( '.hide-if-js' ),
 					icon        = `<span class="dashicons dashicons-${metabox.icon}"></span>`,
 					tabTitle    = $metabox.find( 'h2 span' ).text(),
 					$tabContents = $metabox.detach(),
@@ -88,17 +105,45 @@ var metaboxTabs = ( function( $ ) {
 				$metabox.remove();
 
 				// Add nav link.
-				$tabsNavContainer.append( `<li><a href="#tabs-${index}" title="${tabTitle}">${icon}<span class="title">${tabTitle}</span></a></li>` );
+				$tabsNavContainer.append( `<li data-metabox-tab-index="${index}"><a href="#" title="${tabTitle}">${icon}<span class="title">${tabTitle}</span></a></li>` );
 
 				// Add tab.
-				$tabContainer = $( `<div id="tabs-${index}">` ).appendTo( $tabsContainer );
+				$tabContainer = $( `<div id="metabox-tabs-tab-${index}" class="metabox-tabs-tab">` ).appendTo( $tabsContainer );
 				$tabContents.appendTo( $tabContainer );
+
 			});
 
+			// Select first item.
+			$metaboxTabContainers = $( '.metabox-tabs' );
+			$metaboxTabContainers.each( function() {
+				var $metaboxTabContainer = $( this );
+				$metaboxTabContainer.find( '.metabox-tabs-nav li' ).first().attr( 'aria-selected', true );
+				$metaboxTabContainer.find( '.metabox-tabs-tab' ).first().attr( 'aria-selected', true );
+			});
 		});
+	}
 
-		$( '.metabox-tabs' ).tabs();
+	var setUpEventHandlers = function() {
 
+		$metaboxTabContainers.on( 'click', '.metabox-tabs-nav a', function(e) {
+
+			e.preventDefault();
+
+			var $link             = $( this ),
+				$activeNavItem    = $link.parent( 'li' ),
+				$inactiveNavItems = $activeNavItem.siblings(),
+				index             = $activeNavItem.attr( 'data-metabox-tab-index' ),
+				$activeTab        = $( `#metabox-tabs-tab-${index}` ),
+				$inactiveTabs     = $activeTab.siblings();
+
+			// Deactivate tabs.
+			$inactiveNavItems.attr( 'aria-selected', false );
+			$inactiveTabs.attr( 'aria-selected', false );
+
+			// Activate current tab.
+			$activeNavItem.attr( 'aria-selected', true );
+			$activeTab.attr( 'aria-selected', true );
+		});
 	}
 
 	return {
