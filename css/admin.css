@@ -1,0 +1,131 @@
+/**
+ * Metabox Tabs CSS.
+ */
+
+.metabox-tabs {
+	overflow: hidden;
+	background: linear-gradient(90deg,#fafafa 0,#fafafa 50px,#fff 50px,#fff 100%);
+}
+
+.metabox-tabs {
+	box-sizing: border-box;
+}
+
+.metabox-tabs ul.ui-tabs-nav {
+	float: left;
+	width: 50px;
+	margin: 0;
+}
+
+.metabox-tabs ul.ui-tabs-nav li {
+	margin: 0;
+}
+
+.metabox-tabs ul.ui-tabs-nav li:last-child {
+	margin-bottom: -1px;
+}
+
+.metabox-tabs ul.ui-tabs-nav a {
+	display: block;
+	position: relative;
+	margin: 0;
+	padding: 12px;
+	line-height: 20px!important;
+	text-decoration: none;
+	border-bottom: 1px solid #eee;
+	box-shadow: none;
+	text-decoration: none;
+}
+
+.metabox-tabs ul.ui-tabs-nav .ui-tabs-active a {
+	background-color: #eee;
+	color: inherit;
+	box-sizing: border-box;
+}
+
+.metabox-tabs ul.ui-tabs-nav a .title {
+	visibility: hidden;
+}
+
+.metabox-tabs ul.ui-tabs-nav .dashicons {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	width: 50px;
+	margin-top: -0.5em;
+	text-align: center;
+	line-height: 1;
+}
+
+.metabox-tabs .ui-tabs-panel {
+	float: right;
+	width: calc(100% - 50px);
+	margin-left: -1px;
+	padding: 12px;
+	box-sizing: border-box;
+}
+
+.metabox-tabs .ui-tabs-panel > * {
+	max-width: 100%;
+	box-sizing: border-box;
+}
+
+.metabox-tabs .ui-tabs-panel .postbox,
+.metabox-tabs .ui-tabs-panel .inside {
+	margin: 0 !important;
+	padding: 0 !important;
+	border: none;
+	box-shadow: none;
+	min-width: 0;
+}
+
+.metabox-tabs .ui-tabs-panel button,
+.metabox-tabs .ui-tabs-panel h2 {
+	display: none;
+}
+
+@media (min-width: 480px) {
+
+	.metabox-tabs {
+		background: linear-gradient(90deg,#fafafa 0,#fafafa 180px,#fff 180px,#fff 100%);
+	}
+
+	.metabox-tabs ul.ui-tabs-nav {
+		width: 180px;
+	}
+
+	.metabox-tabs ul.ui-tabs-nav a {
+		padding-left: 45px;
+	}
+
+	.metabox-tabs ul.ui-tabs-nav a .title {
+		visibility: visible;
+	}
+
+	.metabox-tabs .ui-tabs-panel {
+		width: calc(100% - 180px);
+	}
+}
+
+@media (min-width: 850px) {
+
+	#postbox-container-1 .metabox-tabs {
+		background: linear-gradient(90deg,#fafafa 0,#fafafa 50px,#fff 50px,#fff 100%);
+	}
+
+	#postbox-container-1 .metabox-tabs ul.ui-tabs-nav {
+		width: 50px;
+	}
+
+	#postbox-container-1 .metabox-tabs ul.ui-tabs-nav a {
+		padding-left: 0;
+	}
+
+	#postbox-container-1 .metabox-tabs ul.ui-tabs-nav a .title {
+		visibility: hidden;
+	}
+
+	#postbox-container-1 .metabox-tabs .ui-tabs-panel {
+		width: calc(100% - 50px);
+	}
+}
